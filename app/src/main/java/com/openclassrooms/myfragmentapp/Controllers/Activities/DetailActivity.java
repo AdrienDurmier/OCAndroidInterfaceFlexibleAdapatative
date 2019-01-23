@@ -1,7 +1,9 @@
 package com.openclassrooms.myfragmentapp.Controllers.Activities;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.DetailFragment;
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.MainFragment;
@@ -19,14 +21,13 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        //Configure and show home fragment
         this.configureAndShowDetailFragment();
+        this.configureToolbar();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        //Call update method here because we are sure that DetailFragment is visible
         this.updateDetailFragmentTextViewWithIntentTag();
     }
 
@@ -35,13 +36,9 @@ public class DetailActivity extends AppCompatActivity {
     // --------------
 
     private void configureAndShowDetailFragment(){
-        // Get FragmentManager (Support) and Try to find existing instance of fragment in FrameLayout container
         detailFragment = (DetailFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_detail);
-
         if (detailFragment == null) {
-            // Create new main fragment
             detailFragment = new DetailFragment();
-            // Add it to FrameLayout container
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.frame_layout_detail, detailFragment)
                     .commit();
@@ -54,9 +51,14 @@ public class DetailActivity extends AppCompatActivity {
 
     //Update DetailFragment with tag passed from Intent
     private void updateDetailFragmentTextViewWithIntentTag(){
-        //Get button's tag from intent
         int buttonTag = getIntent().getIntExtra(EXTRA_BUTTON_TAG, 0);
-        //Update DetailFragment's TextView
         detailFragment.updateTextView(buttonTag);
+    }
+
+    private void configureToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar ab = getSupportActionBar();
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 }

@@ -3,8 +3,12 @@ package com.openclassrooms.myfragmentapp.Controllers.Activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.DetailFragment;
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.MainFragment;
@@ -24,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         //Configure and show it
         this.configureAndShowMainFragment();
         this.configureAndShowDetailFragment();
+
+        this.configureToolbar();
     }
 
     // --------------
@@ -54,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     // --------------
 
     private void configureAndShowMainFragment(){
-
         mainFragment = (MainFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_main);
 
         if (mainFragment == null) {
@@ -73,6 +78,35 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.frame_layout_detail, detailFragment)
                     .commit();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    // ----
+
+    private void configureToolbar(){
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //3 - Handle actions on menu items
+        switch (item.getItemId()) {
+            case R.id.menu_params:
+                Intent i = new Intent(this, ParamsActivity.class);
+                startActivity(i);
+                return true;
+            case R.id.menu_search:
+                Toast.makeText(this, "Recherche indisponible, demandez plutôt l'avis de Google, c'est mieux et plus rapide.", Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
