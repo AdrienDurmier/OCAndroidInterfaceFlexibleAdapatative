@@ -24,11 +24,8 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Configure and show it
         this.configureAndShowMainFragment();
         this.configureAndShowDetailFragment();
-
         this.configureToolbar();
     }
 

@@ -8,23 +8,25 @@ import android.support.v7.widget.Toolbar;
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.ParamsFragment;
 import com.openclassrooms.myfragmentapp.R;
 
+import butterknife.BindView;
+
 public class ParamsActivity extends AppCompatActivity {
 
-    //Declare detail fragment
+    //Declare params fragment
     private ParamsFragment paramsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_params);
-        this.configureAndShowDetailFragment();
+        this.configureAndShowParamsFragment();
         this.configureToolbar();
     }
     // --------------
     // FRAGMENTS
     // --------------
 
-    private void configureAndShowDetailFragment(){
+    private void configureAndShowParamsFragment(){
         paramsFragment = (ParamsFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_params);
         if (paramsFragment == null) {
             paramsFragment = new ParamsFragment();

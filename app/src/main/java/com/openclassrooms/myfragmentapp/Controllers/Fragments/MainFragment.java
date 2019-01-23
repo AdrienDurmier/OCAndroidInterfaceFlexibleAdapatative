@@ -8,11 +8,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.openclassrooms.myfragmentapp.R;
 
+import butterknife.BindView;
 
-public class MainFragment extends Fragment implements View.OnClickListener {
+
+public class MainFragment extends BaseFragment implements View.OnClickListener {
+
+    @BindView(R.id.fragment_main_button_happy) Button buttonHappy;
+    @BindView(R.id.fragment_main_button_sad) Button buttonSad;
+    @BindView(R.id.fragment_main_button_horrible) Button buttonHorrible;
 
     // Declare callback
     private OnButtonClickedListener mCallback;
@@ -23,25 +31,35 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     // --------------
-
+    // BASE METHODS
+    // --------------
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected BaseFragment newInstance() { return new MainFragment(); }
 
-        // Inflate the layout of MainFragment
-        View result=inflater.inflate(R.layout.fragment_main, container, false);
+    @Override
+    protected int getFragmentLayout() { return R.layout.fragment_main; }
 
-        // Set onClickListener to buttons
-        result.findViewById(R.id.fragment_main_button_happy).setOnClickListener(this);
-        result.findViewById(R.id.fragment_main_button_sad).setOnClickListener(this);
-        result.findViewById(R.id.fragment_main_button_horrible).setOnClickListener(this);
+    @Override
+    protected void configureDesign() {
+        this.updateClickListener();
+    }
 
-        return result;
+    @Override
+    protected void updateDesign() { }
+
+    // --------------
+
+    public void updateClickListener(){
+        this.buttonHappy.setOnClickListener(this);
+        this.buttonSad.setOnClickListener(this);
+        this.buttonHorrible.setOnClickListener(this);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         // Call the method that creating callback after being attached to parent activity
         this.createCallbackToParentActivity();
     }
