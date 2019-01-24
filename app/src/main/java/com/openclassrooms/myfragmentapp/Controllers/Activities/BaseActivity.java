@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-import com.openclassrooms.myfragmentapp.Controllers.Fragments.BaseFragment;
 import com.openclassrooms.myfragmentapp.R;
 
 import butterknife.ButterKnife;
@@ -30,6 +29,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Icepick.restoreInstanceState(this, savedInstanceState);
         this.configureDesign();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.updateDesign();
     }
 
     @Override

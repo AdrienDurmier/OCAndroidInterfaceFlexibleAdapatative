@@ -1,10 +1,6 @@
 package com.openclassrooms.myfragmentapp.Controllers.Activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,20 +10,30 @@ import com.openclassrooms.myfragmentapp.Controllers.Fragments.DetailFragment;
 import com.openclassrooms.myfragmentapp.Controllers.Fragments.MainFragment;
 import com.openclassrooms.myfragmentapp.R;
 
-public class MainActivity extends AppCompatActivity implements MainFragment.OnButtonClickedListener {
+public class MainActivity extends BaseActivity implements MainFragment.OnButtonClickedListener {
 
     //Declare our two fragments
     private MainFragment mainFragment;
     private DetailFragment detailFragment;
 
+    /** ********************************************************************************************
+     * Partie méthodes du BaseActivity
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        this.configureAndShowMainFragment();
-        this.configureAndShowDetailFragment();
-        this.configureToolbar();
+    protected int getFragmentLayout() { return R.layout.activity_main; }
+
+    @Override
+    protected void configureDesign() {
+        this.configureAndShowMainFragment();    // -> Fragment Main
+        this.configureAndShowDetailFragment();  // -> Fragment detail
+        this.configureToolbar();                // -> Toolbar
     }
+
+    @Override
+    protected void updateDesign() { }
+    /**
+     * FIN/ Partie méthodes du BaseActivity
+     ******************************************************************************************** */
 
     // --------------
     // CallBack
@@ -49,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
             startActivity(i);
         }
     }
-
-
 
     // --------------
     // FRAGMENTS
@@ -78,17 +82,14 @@ public class MainActivity extends AppCompatActivity implements MainFragment.OnBu
         }
     }
 
+    // --------------
+    // Override
+    // --------------
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
-    }
-
-    // ----
-
-    private void configureToolbar(){
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     @Override
